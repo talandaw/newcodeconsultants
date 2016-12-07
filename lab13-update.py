@@ -14,6 +14,7 @@ key = False
 #This is a directional text game where the main options are right, left, backward, and forward.
 #More options may exist depending on the room the player is in. 
 def welcome():
+    showInformation("Welcome to newCode++ Consultants' Adventure Game!\nIn each room you will...\nYou'll be able to go...\nType '<direction>' to move\nThere are various commands that can be performed on specific objects\nThese include: open, use\nType 'help' to redisplay this intro at any time\nType 'exit' to quit game at any time")
     printNow("Welcome to newCode++ Consultants' Adventure Game!")
     printNow("In each room you will...")
     printNow("You'll be able to go...")
