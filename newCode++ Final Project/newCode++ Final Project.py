@@ -8,7 +8,7 @@ import java.awt.Font as Font
 # Global variables initialized
 userName = ""
 items = []
-gameCanvas = makeEmptyPicture(800,1000)
+gameCanvas = makeEmptyPicture(800,800)
 myFont = makeStyle("Comic Sans", Font.BOLD, 12)
 backDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedBackDoor.jpg")
 frontDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedFrontDoor.jpg")
@@ -58,14 +58,16 @@ def welcome():
 def foyer():
     global items    
     
-    foyerString = ("----------Foyer---------\nYou are in the Foyer\nThe once grandiose room seems barren now...\nForward/F - In front of you is the Front Hallway, leading to various rooms\n" +
-       " Right/R - To your right is a Study\nLeft/L - To your left is the Living Room.\nBackward/B - Behind you is the door to the Front Yard, it seems to be locked, you must need a key.")
+    foyerString = ("----------Foyer---------\nYou are in the Foyer\nThe once grandiose room seems barren now...\nForward/F - In front of you is the Front Hallway, leading to various rooms" +
+       "\nRight/R - To your right is a Study\nLeft/L - To your left is the Living Room.\nBackward/B - Behind you is the door to the Front Yard, it seems to be locked, you must need a key.")
 
-    addTextWithStyle( gameCanvas, 50, 600, foyerString, myFont, black)
-    pyCopy(foyerImage, gameCanvas, 0, 0)
+    #addTextWithStyle( gameCanvas, 50, 600, foyerString, myFont, black)
+    #pyCopy(foyerImage, gameCanvas, 0, 0)
     #repaint(foyerImage)
-    #showInformation(foyerString)
-    repaint(gameCanvas)
+    #gameCanvas = foyerImage
+    #repaint(gameCanvas)
+    repaint(foyerImage)
+    showInformation(foyerString)
     
     #prompt user for string direction/command, convert to all lowercase, compare to available values
     #print appropriate message and, if legal, move in indicated direction
@@ -98,7 +100,11 @@ def foyer():
 #Left is the foyer. 
 #There is not a right or backward option, these directions will start the function over.
 def study():
-    repaint(studyImage)
+    global gameCanvas
+    gameCanvas.close()
+    gameCanvas = studyImage
+    repaint(gameCanvas)
+        
     studyString = ("--------Study--------\nYou are in the Study\nA whistling sound startles you when wind comes in through a broken window..." +
         "\nForward/F - In front of you is the Kitchen\nLeft/L - To your left is the Foyer.")
     showInformation(studyString)
