@@ -4,24 +4,19 @@
 # Text-driven adventure game.
 # Instructions appear at the start of the game
 #
-# Global variables need to be set so functions
-# can access their values (T/F)
-crowbar = False
-key = False
+# Global variables initialized to null/empty
+userName = ""
+items = [] #list to hold items obtained during game
 
 #Welcome message/instructions displayed at start of game and when user types 'help'
 #The player will attempt to exit an abandoned house through rooms in the house.
 #This is a directional text game where the main options are right, left, backward, and forward.
 #More options may exist depending on the room the player is in. 
 def welcome():
-    printNow("Welcome to newCode++ Consultants' Adventure Game!")
-    printNow("In each room you will...")
-    printNow("You'll be able to go...")
-    printNow("Type '<direction>' to move")
-    printNow("There are various commands that can be performed on specific objects")
-    printNow("These include: open, use")
-    printNow("Type 'help' to redisplay this intro at any time")
-    printNow("Type 'exit' to quit game at any time")
+    global userName
+    showInformation("Welcome to newCode++ Consultants' Adventure Game!\nIn each room you will...\nYou can move forward, backward, left, right, if allowed\nType '<direction>' to move \
+    \nThere are various commands that can be performed on specific objects\nThese include: open, use\nType 'help' to redisplay this intro at any time\nType 'exit' to quit game at any time")
+    userName = requestString("What is your name, adventurer?:")
 
 #Foyer room description with available directional movement listed
 #First room player enters. 
@@ -32,6 +27,8 @@ def welcome():
 #and tries to use it while in the foyer, the key will break and iniate the lose function. 
 #The game will then restart.
 def foyer():
+    global items 
+
     printNow("----Foyer----")
     printNow("You are in the Foyer.")
     printNow("The once grandiose room seems barren now...")
@@ -54,10 +51,11 @@ def foyer():
             printNow("Leaving Foyer, Entering Living Room...")
             livingRoom()  
         elif direction == "backward" or direction == "b":
-            if key == True:
+            if "key" in items: 
                 lose()
             else:
-                printNow("The Door is locked. You are missing the items to open door...")
+                #Item missing message is displayed in dialogue box
+                showInformation("The Door is locked. You are missing the items to open door...")
                 foyer() 
         else:
             printNow("Improper direction.")
@@ -165,7 +163,7 @@ def frontHallway():
 #will be used in the library. A boolean is set to true for the crowbar for later use.
 #Backward is the study.
 def kitchen():
-    global crowbar
+    global items
     
     printNow("----Kitchen----")
     printNow("You are in the Kitchen.")
@@ -182,9 +180,9 @@ def kitchen():
             printNow("Leaving Kitchen, Entering Main Bedroom...")
             mainBedroom()
         elif direction == "open dishwasher" or direction == "open":
-            printNow("Opening dish washer...")
-            crowbar = True
-            printNow("You found a crowbar in the dishwasher that will open the book in the library...")
+            #Item message is displayed in dialogue box
+            showInformation("Opening dish washer...\nYou found a crowbar in the dishwasher that will open the book in the library...")
+            items.append("crowbar") #add item to list
             kitchen()
         elif direction == "left" or direction == "l":
             printNow("Leaving Kitchen, Entering Front Hallway...")
@@ -206,7 +204,7 @@ def kitchen():
 #There is an option to open the closet door. The closet is the secret room.
 #Backward is the living room.
 def library():
-    global key
+    global items
     
     printNow("----Library----")
     printNow("You are in the Library...")
@@ -221,12 +219,13 @@ def library():
     if checkInput(direction) != 'exit':
         if direction == "get book" or direction == "get":
             printNow("As you grab the book, you notice it seems to be hollow and locked, what could be in it?")
-            if crowbar == True:
-                printNow("You use the crowbar to break the lock on the book...")
-                printNow("Inside you find a key for the front and back doors...")
-                key = True
+            if "crowbar" in items:
+                #Item message is displayed in dialogue box
+                showInformation("You use the crowbar to break the lock on the book...\nInside you find a key for the front and back doors...")
+                items.append("key")
             else:
-                printNow("You are missing the required item to open the book...")
+                #Missing item message is displayed in dialogue box
+                showInformation("You are missing the required item to open the book...")
             library()  
         elif direction == "forward" or direction == "f":
             printNow("Leaving Library, Entering Guest Room...")
@@ -236,11 +235,13 @@ def library():
             frontHallway()
         elif direction == "open door" or direction == "open":
             printNow("Attempting to open closet door...")
-            if key == True:
-                printNow("You use the key to unlock the door")
+            if "key" in items:
+                #Success message is displayed in a dalodue box
+                showInformation("You use the key to unlock the door")
                 closet()
             else:
-                printNow("The closet door is firmly shut.")
+                #Missing item message displayed to screen
+                showInformation("The closet door is firmly shut, you are missing an item.")
                 library()
         elif direction == "backward" or direction == "b":
             printNow("Leaving Library, Entering Living Room...")
@@ -294,10 +295,12 @@ def backHallway():
     if checkInput(direction) != 'exit':
         if direction == "forward" or direction == "f":
             printNow("You move toward the back door and verify it is locked.")
-            if key == True:
-                printNow("You use the key to open the Back Door")
+            if "key" in items:
+                #Item message is displayed in dialogue box
+                showInformation("You use the key to open the Back Door")
                 win()
             else:
+                #Missing item message is displayed in a dialogue box
                 printNow("You are missing the key to unlock the door..")
                 backHallway() 
         elif direction == "right" or direction == "r":
@@ -378,16 +381,16 @@ def guestBedroom():
  
 #Player wins if the crowbar is used to open the book and the key inside the book is used to unlock the backdoor. 
 #Player can only win in the backhallway.
+#Winning message is displayed in dialogue box
 def win(): 
-    printNow("---------------------Congratulations!------------------------")
-    printNow("----You successfully exited the house and completed the game!----")
+    showInformation("Congratulations, " + userName + "!!!\nYou successfully exited the house and completed the game!")
     
 #Player loses if the key in the book is used in the front door. The key breaks off and the player does not 
 #have a way out.
 #Player can only lose in the foyer.
+#Losing message is displayed in dialogue box
 def lose():
-    printNow("---------------------GAME OVER------------------------")
-    printNow("----Your key broke in the door. You are trapped forever!")
+    showInformation("GAME OVER, " + userName + "!\nYour key broke in the door. You are trapped forever!")
     #playGame()
 
 #Main game function invokes the welcome message and then starts the user in the foyer       
@@ -401,7 +404,8 @@ def checkInput(string):
         welcome()
         return "welcome"
     if string == "exit" or string == "e":
-        printNow("You wake up, startled, the house vanishing as a dream...") 
+        #Exit message is displayed in dialogue box
+        showInformation(userName + " , you wake up, startled, the house vanishing as a dream...") 
         return "exit"
       
 playGame()
