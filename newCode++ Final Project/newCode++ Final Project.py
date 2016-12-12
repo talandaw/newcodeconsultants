@@ -3,11 +3,13 @@
 # CST 205 - Final Project
 # Enhanced text-driven adventure game.
 # Instructions appear at the start of the game
-#
+import java.awt.Font as Font
+
 # Global variables initialized
 userName = ""
 items = []
-gameCanvas = makeEmptyPicture(800,600)
+gameCanvas = makeEmptyPicture(800,1000)
+myFont = makeStyle("Comic Sans", Font.BOLD, 12)
 backDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedBackDoor.jpg")
 frontDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedFrontDoor.jpg")
 openFrontDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/loseHole.jpg")
@@ -27,6 +29,14 @@ backHallwayImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//
 guestBedroomImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/guestBedroom.jpg")
 masterBedroomImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/masterBedroom.jpg")
 
+
+def pyCopy(source, target, targetX, targetY):
+    for x in range (0, getWidth(source)):
+        for y in range (0, getHeight(source)):
+            color = getColor( getPixel(source, x, y))
+            setColor( getPixel(target, targetX + x, targetY + y), color)
+    return target
+    
 #Welcome message/instructions displayed at start of game and when user types 'help'
 #The player will attempt to exit an abandoned house through rooms in the house.
 #This is a directional text game where the main options are right, left, backward, and forward.
@@ -46,12 +56,16 @@ def welcome():
 #and tries to use it while in the foyer, the key will break and iniate the lose function. 
 #The game will then restart.
 def foyer():
-    global items
+    global items    
     
-    repaint(foyerImage)
     foyerString = ("----------Foyer---------\nYou are in the Foyer\nThe once grandiose room seems barren now...\nForward/F - In front of you is the Front Hallway, leading to various rooms\n" +
        " Right/R - To your right is a Study\nLeft/L - To your left is the Living Room.\nBackward/B - Behind you is the door to the Front Yard, it seems to be locked, you must need a key.")
-    showInformation(foyerString)
+
+    addTextWithStyle( gameCanvas, 50, 600, foyerString, myFont, black)
+    pyCopy(foyerImage, gameCanvas, 0, 0)
+    #repaint(foyerImage)
+    #showInformation(foyerString)
+    repaint(gameCanvas)
     
     #prompt user for string direction/command, convert to all lowercase, compare to available values
     #print appropriate message and, if legal, move in indicated direction
