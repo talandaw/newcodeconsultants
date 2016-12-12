@@ -7,14 +7,14 @@
 # Global variables initialized
 userName = ""
 items = []
-backDoor = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/chainedDoor.jpg")
-frontDoor = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/lockedDoor2.jpg")
-openFrontDoor = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/hole1.jpg")
-openBackDoor = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/openDoor1.jpg")
-lockedBook = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/lockedBook1.jpg")
-unlockedBook = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/keyInBook1.jpg")
-crowbar = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/crowbar1.jpg")
-window = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/window.jpg")
+backDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/chainedDoor.jpg")
+frontDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedDoor2.jpg")
+openFrontDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/hole1.jpg")
+openBackDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/openDoor1.jpg")
+lockedBook = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedBook1.jpg")
+unlockedBook = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/keyInBook1.jpg")
+crowbar = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/crowbar.jpg")
+window = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/window.jpg")
 
 #Welcome message/instructions displayed at start of game and when user types 'help'
 #The player will attempt to exit an abandoned house through rooms in the house.
