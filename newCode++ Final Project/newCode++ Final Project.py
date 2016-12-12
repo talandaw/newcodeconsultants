@@ -58,16 +58,16 @@ def welcome():
 def foyer():
     global items    
     
+    repaint(foyerImage)
     foyerString = ("----------Foyer---------\nYou are in the Foyer\nThe once grandiose room seems barren now...\nForward/F - In front of you is the Front Hallway, leading to various rooms" +
        "\nRight/R - To your right is a Study\nLeft/L - To your left is the Living Room.\nBackward/B - Behind you is the door to the Front Yard, it seems to be locked, you must need a key.")
-
+    showInformation(foyerString)
+    
     #addTextWithStyle( gameCanvas, 50, 600, foyerString, myFont, black)
     #pyCopy(foyerImage, gameCanvas, 0, 0)
     #repaint(foyerImage)
     #gameCanvas = foyerImage
     #repaint(gameCanvas)
-    repaint(foyerImage)
-    showInformation(foyerString)
     
     #prompt user for string direction/command, convert to all lowercase, compare to available values
     #print appropriate message and, if legal, move in indicated direction
