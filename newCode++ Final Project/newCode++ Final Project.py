@@ -100,10 +100,7 @@ def foyer():
 #Left is the foyer. 
 #There is not a right or backward option, these directions will start the function over.
 def study():
-    global gameCanvas
-    gameCanvas.close()
-    gameCanvas = studyImage
-    repaint(gameCanvas)
+    repaint(studyImage)
         
     studyString = ("--------Study--------\nYou are in the Study\nA whistling sound startles you when wind comes in through a broken window..." +
         "\nForward/F - In front of you is the Kitchen\nLeft/L - To your left is the Foyer.")
