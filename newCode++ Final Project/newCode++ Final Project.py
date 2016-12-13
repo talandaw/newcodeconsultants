@@ -12,10 +12,10 @@ gameCanvas = makeEmptyPicture(800,800)
 myFont = makeStyle("Comic Sans", Font.BOLD, 12)
 backDoor = makePicture("C://pics/lockedBackDoor.jpg")
 frontDoor = makePicture("C://pics/lockedFrontDoor.jpg")
-openFrontDoor = makePicture("C://pics/loseHole.jpg")
-openBackDoor = makePicture("C://pics/openedFrontDoor.jpg")
+openedFrontDoor = makePicture("C://pics/loseHole.jpg")
+openedBackDoor = makePicture("C://pics/openedBackDoor.jpg")
 lockedBook = makePicture("C://pics/lockedBook.jpg")
-unlockedBook = makePicture("C://pics/openedBook.jpg")
+openedBook = makePicture("C://pics/openedBook.jpg")
 crowbar = makePicture("C://pics/crowbar.jpg")
 window = makePicture("C://pics/window.jpg")
 foyerImage = makePicture("C://pics/foyer.jpg")
@@ -99,7 +99,7 @@ def foyer():
             livingRoom()  
         elif direction == "backward" or direction == "b":
             if "key" in items:
-                show(openFrontDoor)
+                show(openedFrontDoor)
                 lose()
             else:
                 show( frontDoor)
@@ -250,8 +250,8 @@ def library():
     global items
     repaint(libraryImage)
     libraryString = ("--------Library--------\nYou are in the Library...\nThe room is eerily pristine, organized, spotless, aligned...except" +
-        "Get book/Get - Something seems off about this book\nForward/F - In front of you is the Guest Bedroom.\nRight/R - To your right is the Front Hallway." + 
-        "Open door/Open - To your left is a closed closet door.\nBackward/B - Behind you is the Living Room.")
+        "\nGet book/Get - Something seems off about this book\nForward/F - In front of you is the Guest Bedroom.\nRight/R - To your right is the Front Hallway." + 
+        "\nOpen door/Open - To your left is a closed closet door.\nBackward/B - Behind you is the Living Room.")
     showInformation(libraryString)
    
     direction = requestString("Which direction will you go?:").lower()
@@ -264,7 +264,7 @@ def library():
                 showInformation("You use the crowbar to break the lock on the book...\nInside you find a key for the front and back doors...")
                 play(crowbarTapping)
                 play(openBook)
-                show(unlockedBook)
+                show(openedBook)
                 items.append("key")
             else:
                 show(lockedBook)
@@ -303,8 +303,8 @@ def closet():
     repaint(closetImage)
     play(openDoor)
     closetString = ("--------Secret Room: Closet--------\nYou are in a Closet in the Library...\nFlicking on a light: You pick up a diary, which details the origins of the house." +
-        "There was a happy family here.. in 1902. There is no description on where they went.\nScribbled on the front is the word: FEAR\nScribbled on the back is the word: CLEAR" +
-        "Backward/B - Behind you is the Library")
+        "\nThere was a happy family here.. in 1902. There is no description on where they went.\nScribbled on the front is the word: FEAR\nScribbled on the back is the word: CLEAR" +
+        "\nBackward/B - Behind you is the Library")
     showInformation(closetString)
     
     direction = requestString("Which direction will you go?:").lower()
@@ -336,7 +336,7 @@ def backHallway():
             showInformation("You move toward the back door and verify it is locked.")
             if "key" in items:
                 showInformation("You use the key to open the Back Door")
-                show(openBackDoor)
+                show(openedBackDoor)
                 win()
             else:
                 show(backDoor)
