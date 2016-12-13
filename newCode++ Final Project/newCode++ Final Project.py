@@ -12,8 +12,8 @@ gameCanvas = makeEmptyPicture(800,800)
 myFont = makeStyle("Comic Sans", Font.BOLD, 12)
 backDoor = makePicture("C://pics/lockedBackDoor.jpg")
 frontDoor = makePicture("C://pics/lockedFrontDoor.jpg")
-openFrontDoor = makePicture("C://pics/loseHole.jpg")
-openBackDoor = makePicture("C://pics/openedFrontDoor.jpg")
+openedFrontDoor = makePicture("C://pics/loseHole.jpg")
+openedBackDoor = makePicture("C://pics/openedBackDoor.jpg")
 lockedBook = makePicture("C://pics/lockedBook.jpg")
 openedBook = makePicture("C://pics/openedBook.jpg")
 crowbar = makePicture("C://pics/crowbar.jpg")
@@ -84,7 +84,7 @@ def foyer():
             livingRoom()  
         elif direction == "backward" or direction == "b":
             if "key" in items:
-                show(openFrontDoor)
+                show(openedFrontDoor)
                 lose()
             else:
                 show( frontDoor)
@@ -314,7 +314,7 @@ def backHallway():
             showInformation("You move toward the back door and verify it is locked.")
             if "key" in items:
                 showInformation("You use the key to open the Back Door")
-                show(openBackDoor)
+                show(openedBackDoor)
                 win()
             else:
                 show(backDoor)
