@@ -10,24 +10,24 @@ userName = ""
 items = []
 gameCanvas = makeEmptyPicture(800,800)
 myFont = makeStyle("Comic Sans", Font.BOLD, 12)
-backDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedBackDoor.jpg")
-frontDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedFrontDoor.jpg")
-openFrontDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/loseHole.jpg")
-openBackDoor = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/openedFrontDoor.jpg")
-lockedBook = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/lockedBook.jpg")
-unlockedBook = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/openedBook.jpg")
-crowbar = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/crowbar.jpg")
-window = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/window.jpg")
-foyerImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/foyer.jpg")
-studyImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/study.jpg")
-livingRoomImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/livingRoom.jpg")
-frontHallwayImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/frontHallway.jpg")
-libraryImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/library.jpg")
-kitchenImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/kitchen.jpg")
-closetImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/closet.jpg")
-backHallwayImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/backHallway.jpg")
-guestBedroomImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/guestBedroom.jpg")
-masterBedroomImage = makePicture("C://Users//Jordan EliteBook//Documents//GitHub//newcodeconsultants//newcodeconsultants//newCode++ Final Project/masterBedroom.jpg")
+backDoor = makePicture("C://pics/lockedBackDoor.jpg")
+frontDoor = makePicture("C://pics/lockedFrontDoor.jpg")
+openFrontDoor = makePicture("C://pics/loseHole.jpg")
+openBackDoor = makePicture("C://pics/openedFrontDoor.jpg")
+lockedBook = makePicture("C://pics/lockedBook.jpg")
+unlockedBook = makePicture("C://pics/openedBook.jpg")
+crowbar = makePicture("C://pics/crowbar.jpg")
+window = makePicture("C://pics/window.jpg")
+foyerImage = makePicture("C://pics/foyer.jpg")
+studyImage = makePicture("C://pics/study.jpg")
+livingRoomImage = makePicture("C://pics/livingRoom.jpg")
+frontHallwayImage = makePicture("C://pics/frontHallway.jpg")
+libraryImage = makePicture("C://pics/library.jpg")
+kitchenImage = makePicture("C://pics/kitchen.jpg")
+closetImage = makePicture("C://pics/closet.jpg")
+backHallwayImage = makePicture("C://pics/backHallway.jpg")
+guestBedroomImage = makePicture("C://pics/guestBedroom.jpg")
+masterBedroomImage = makePicture("C://pics/masterBedroom.jpg")
 
 
 def pyCopy(source, target, targetX, targetY):
@@ -100,10 +100,7 @@ def foyer():
 #Left is the foyer. 
 #There is not a right or backward option, these directions will start the function over.
 def study():
-    global gameCanvas
-    gameCanvas.close()
-    gameCanvas = studyImage
-    repaint(gameCanvas)
+    repaint(studyImage)
         
     studyString = ("--------Study--------\nYou are in the Study\nA whistling sound startles you when wind comes in through a broken window..." +
         "\nForward/F - In front of you is the Kitchen\nLeft/L - To your left is the Foyer.")
