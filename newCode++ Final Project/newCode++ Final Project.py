@@ -35,7 +35,7 @@ crowbarSound = makeSound("C://sounds/crowbarSound.wav")
 doorClosedSound = makeSound("C://sounds/doorClosedSound.wav")
 gameOver = makeSound("C://sounds/gameOver.wav")
 pickupKeysSound = makeSound("C://sounds/pickupKeysSound.wav")
-#welcomeSound = makeSound("C://sounds/welcome.wav")
+welcomeSound = makeSound("C://sounds/welcome.wav")
 doorClosedSound = makeSound("C://sounds/doorClosedSound.wav") 
 openDoor = makeSound("C://sounds/openDoor.wav")
 openBook = makeSound("C://sounds/openBook.wav")
@@ -57,7 +57,7 @@ def pyCopy(source, target, targetX, targetY):
 #More options may exist depending on the room the player is in. 
 def welcome():
     global userName
-    #play(welcomeSound)
+    play(welcomeSound)
     showInformation("Welcome to newCode++ Consultants' Adventure Game!\nIn each room you will...\nYou can move forward, backward, left, right, if allowed\nType '<direction>' to move \
     \nThere are various commands that can be performed on specific objects\nThese include: open, use\nType 'help' to redisplay this intro at any time\nType 'exit' to quit game at any time")
     userName = requestString("What is your name, adventurer?:")
