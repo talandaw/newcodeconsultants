@@ -7,6 +7,8 @@
 # Global variables initialized
 userName = ""
 items = []
+
+#Pictures
 backDoor = makePicture("C://Pictures/lockedBackDoor.jpg")
 frontDoor = makePicture("C://Pictures/lockedFrontDoor.jpg")
 openedFrontDoor = makePicture("C://Pictures/loseHole.jpg")
@@ -26,7 +28,7 @@ backHallwayImage = makePicture("C://Pictures/backHallway.jpg")
 guestBedroomImage = makePicture("C://Pictures/guestBedroom.jpg")
 masterBedroomImage = makePicture("C://Pictures/masterBedroom.jpg")
 
-#SOUNDS
+#Sounds
 backgroundSounds = makeSound("C://sounds/backgroundSounds.wav")
 crowbarSound = makeSound("C://sounds/crowbarSound.wav")
 doorClosedSound = makeSound("C://sounds/doorClosedSound.wav")
@@ -41,6 +43,20 @@ thud = makeSound("C://sounds/thud.wav")
 crowbarTapping = makeSound("C://sounds/crowbarTapping.wav")
 cheer = makeSound("C://sounds/cheer.wav")
 
+#Function to make negative of image   
+def makeNegative(pic):
+    pixels = getPixels(pic)
+    #show(pic)
+    for p in pixels:
+        r = getRed(p)
+        g = getGreen(p)
+        b = getBlue(p)
+        setRed(p, 255 - r)
+        setGreen(p, 255 - g)
+        setBlue(p, 255 - b)
+    repaint(pic)   
+    
+#Function to copy image into target beginning at specified pixel coordinates    
 def pyCopy(source, target, targetX, targetY):
     for x in range (0, getWidth(source)):
         for y in range (0, getHeight(source)):
@@ -97,6 +113,7 @@ def foyer():
         elif direction == "backward" or direction == "b":
             if "key" in items:
                 show(openedFrontDoor)
+                makeNegative(openedFrontDoor)
                 lose()
             else:
                 show( frontDoor)
