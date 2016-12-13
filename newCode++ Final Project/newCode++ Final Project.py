@@ -3,18 +3,40 @@
 # CST 205 - Final Project
 # Enhanced text-driven adventure game.
 # Instructions appear at the start of the game
-#
+import java.awt.Font as Font
+
 # Global variables initialized
 userName = ""
 items = []
-backDoor = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/chainedDoor.jpg")
-frontDoor = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/lockedDoor2.jpg")
-openFrontDoor = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/hole1.jpg")
-openBackDoor = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/openDoor1.jpg")
-lockedBook = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/lockedBook1.jpg")
-unlockedBook = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/keyInBook1.jpg")
-crowbar = makePicture("C://Users//Jordan EliteBook//Documents//School//CSUMB//CST 205//newCode++ Final Project/crowbar1.jpg")
+gameCanvas = makeEmptyPicture(800,800)
+myFont = makeStyle("Comic Sans", Font.BOLD, 12)
+backDoor = makePicture("C://pics/lockedBackDoor.jpg")
+frontDoor = makePicture("C://pics/lockedFrontDoor.jpg")
+openFrontDoor = makePicture("C://pics/loseHole.jpg")
+openBackDoor = makePicture("C://pics/openedFrontDoor.jpg")
+lockedBook = makePicture("C://pics/lockedBook.jpg")
+unlockedBook = makePicture("C://pics/openedBook.jpg")
+crowbar = makePicture("C://pics/crowbar.jpg")
+window = makePicture("C://pics/window.jpg")
+foyerImage = makePicture("C://pics/foyer.jpg")
+studyImage = makePicture("C://pics/study.jpg")
+livingRoomImage = makePicture("C://pics/livingRoom.jpg")
+frontHallwayImage = makePicture("C://pics/frontHallway.jpg")
+libraryImage = makePicture("C://pics/library.jpg")
+kitchenImage = makePicture("C://pics/kitchen.jpg")
+closetImage = makePicture("C://pics/closet.jpg")
+backHallwayImage = makePicture("C://pics/backHallway.jpg")
+guestBedroomImage = makePicture("C://pics/guestBedroom.jpg")
+masterBedroomImage = makePicture("C://pics/masterBedroom.jpg")
 
+
+def pyCopy(source, target, targetX, targetY):
+    for x in range (0, getWidth(source)):
+        for y in range (0, getHeight(source)):
+            color = getColor( getPixel(source, x, y))
+            setColor( getPixel(target, targetX + x, targetY + y), color)
+    return target
+    
 #Welcome message/instructions displayed at start of game and when user types 'help'
 #The player will attempt to exit an abandoned house through rooms in the house.
 #This is a directional text game where the main options are right, left, backward, and forward.
@@ -34,28 +56,31 @@ def welcome():
 #and tries to use it while in the foyer, the key will break and iniate the lose function. 
 #The game will then restart.
 def foyer():
-    global items
-
-    printNow("----Foyer----")
-    printNow("You are in the Foyer.")
-    printNow("The once grandiose room seems barren now...")
-    printNow("Forward/F - In front of you is the Front Hallway, leading to various rooms.")
-    printNow("Right/R - To your right is a Study.")
-    printNow("Left/L - To your left is the Living Room.")
-    printNow("Backward/B - Behind you is the door to the Front Yard, it seems to be locked, you must need a key.")
+    global items    
+    
+    repaint(foyerImage)
+    foyerString = ("----------Foyer---------\nYou are in the Foyer\nThe once grandiose room seems barren now...\nForward/F - In front of you is the Front Hallway, leading to various rooms" +
+       "\nRight/R - To your right is a Study\nLeft/L - To your left is the Living Room.\nBackward/B - Behind you is the door to the Front Yard, it seems to be locked, you must need a key.")
+    showInformation(foyerString)
+    
+    #addTextWithStyle( gameCanvas, 50, 600, foyerString, myFont, black)
+    #pyCopy(foyerImage, gameCanvas, 0, 0)
+    #repaint(foyerImage)
+    #gameCanvas = foyerImage
+    #repaint(gameCanvas)
     
     #prompt user for string direction/command, convert to all lowercase, compare to available values
     #print appropriate message and, if legal, move in indicated direction
     direction = requestString("Which direction will you go?:").lower() 
     if checkInput(direction) != 'exit':   
         if direction == "forward" or direction == "f":
-            printNow("Leaving Foyer, Entering Front Hallway...")
+            showInformation("Leaving Foyer, Entering Front Hallway...")
             frontHallway()  
         elif direction == "right" or direction == "r":
-            printNow("Leaving Foyer, Entering Study...")
+            showInformation("Leaving Foyer, Entering Study...")
             study()
         elif direction == "left" or direction == "l":
-            printNow("Leaving Foyer, Entering Living Room...")
+            showInformation("Leaving Foyer, Entering Living Room...")
             livingRoom()  
         elif direction == "backward" or direction == "b":
             if "key" in items:
@@ -63,10 +88,10 @@ def foyer():
                 lose()
             else:
                 show( frontDoor)
-                printNow("The Door is locked. You are missing the items to open door...")
+                showInformation("The Door is locked. You are missing the items to open door...")
                 foyer() 
         else:
-            printNow("Improper direction.")
+            showInformation("Improper direction.")
             foyer()         
 
 #Study room description with available directional movement listed  
@@ -75,28 +100,28 @@ def foyer():
 #Left is the foyer. 
 #There is not a right or backward option, these directions will start the function over.
 def study():
-    printNow("----Study----")
-    printNow("You are in the Study.")
-    printNow("A whistling sound startles you when wind comes in through a broken window..,")
-    printNow("Forward/F - In front of you is the Kitchen.")
-    printNow("Left/L - To your left is the Foyer.")
+    repaint(studyImage)
+        
+    studyString = ("--------Study--------\nYou are in the Study\nA whistling sound startles you when wind comes in through a broken window..." +
+        "\nForward/F - In front of you is the Kitchen\nLeft/L - To your left is the Foyer.")
+    showInformation(studyString)
     
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':   
         if direction == "forward" or direction == "f":
-            printNow("Leaving Study, Entering Kitchen...")
+            showInformation("Leaving Study, Entering Kitchen...")
             kitchen()  
         elif direction == "right" or direction == "r":
-            printNow("Sorry, you can't go through the wall.")
+            showInformation("Sorry, you can't go through the wall.")
             study()                  
         elif direction == "left" or direction == "l":
-            printNow("Leaving Study, Entering Foyer...")
+            showInformation("Leaving Study, Entering Foyer...")
             foyer()  
         elif direction == "backward" or direction == "b":
-            printNow("Sorry, you can't go through the wall.")
+            showInformation("Sorry, you can't go through the wall.")
             study()                     
         else:
-           printNow("Improper direction.")
+           showInformation("Improper direction.")
            study()          
 
 #Living Room description with available directional movement listed
@@ -105,29 +130,27 @@ def study():
 #Right is the foyer. 
 #Left and backward are not options, they will start the function over.
 def livingRoom():
-    printNow("----Living Room----")
-    printNow("You are in the Living Room.")
-    printNow("Dusty doilies cover various faded couches and chairs...")
-    printNow("This room seems not to have been used for some time")
-    printNow("Forward/F - In front of you is Library.")
-    printNow("Right/R - To your right is the Foyer.")
+    repaint(livingRoomImage)
+    livingRoomString = ("--------Living Room--------\nYou are in the Living Room\nDusty doilies cover various faded couches and chairs..." +
+        "\nThis room seems not to have been used for some time\nForward/F - In front of you is Library.\nRight/R - To your right is the Foyer.")
+    showInformation(livingRoomString)
     
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':   
         if direction == "forward" or direction == "f":
-            printNow("Leaving Living Room, Entering library...")
+            showInformation("Leaving Living Room, Entering library...")
             library()  
         elif direction == "right" or direction == "r":
-            printNow("Leaving Living Room, Entering Foyer...")
+            showInformation("Leaving Living Room, Entering Foyer...")
             foyer()
         elif direction == "left" or direction == "l":
-            printNow("Sorry, you can't go through the wall.")
+            showInformation("Sorry, you can't go through the wall.")
             livingRoom()       
         elif direction == "backward" or direction == "b":
-            printNow("Sorry, you can't go through the wall.")
+            showInformation("Sorry, you can't go through the wall.")
             livingRoom()   
         else:
-            printNow("Improper direction.")
+            showInformation("Improper direction.")
             livingRoom()          
 
 #Front Hallway room description with available directional movement listed
@@ -137,30 +160,28 @@ def livingRoom():
 #Left is the library.
 #Backward is the foyer.
 def frontHallway():
-    printNow("----Front Hallway----")
-    printNow("You are at the beginning of the hallway.")
-    printNow("Portraits of unknown faces seem to stare at you, questioning why you are in their domain...")
-    printNow("Forward/F - The long dimly light hallway continues.")
-    printNow("Right/R - To your right is the kitchen.")
-    printNow("Left/L - To your left is library.")
-    printNow("Backward/B - Behind you is the foyer.")
+    repaint(frontHallwayImage)
+    frontHallwayString = ("-------Front Hallway--------\nYou are at the beginning of the hallway." +
+        "\nPortraits of unknown faces seem to stare at you, questioning why you are in their domain...\nForward/F - The long dimly light hallway continues." + 
+        "\nRight/R - To your right is the kitchen.\nLeft/L - To your left is library.\nBackward/B - Behind you is the foyer.")
+    showInformation(frontHallwayString)
     
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':
         if direction == "forward" or direction == "f":
-            printNow("Walking down the hallway, the lights flicker on and off...")
+            showInformation("Walking down the hallway, the lights flicker on and off...")
             backHallway()  
         elif direction == "right" or direction == "r":
-            printNow("Entering Kitchen...")
+            showInformation("Entering Kitchen...")
             kitchen()
         elif direction == "left" or direction == "l":
-            printNow("Entering library...")
+            showInformation("Entering library...")
             library()  
         elif direction == "backward" or direction == "b":
-            printNow("Entering Foyer...")
+            showInformation("Entering Foyer...")
             foyer()
         else:
-            printNow("Improper direction.")
+            showInformation("Improper direction.")
             frontHallway()          
 
 #Kitchen room description with available directional movement listed
@@ -173,19 +194,16 @@ def frontHallway():
 def kitchen():
     global items
     
-    printNow("----Kitchen----")
-    printNow("You are in the Kitchen.")
-    printNow("Everything seems dusty except...")
-    printNow("There is one clean dish sitting by itself in the dish rack...")
-    printNow("Forward/F - In front of you is a bedroom.")
-    printNow("Left/L - To your left is the the front hallway.")
-    printNow("Open dishwasher/Open - There is a dishwasher to your right")
-    printNow("Backward/B - Behind you is the study.")    
-            
+    repaint(kitchenImage)
+    kitchenString = ("--------Kitchen--------\nYou are in the Kitchen.\nEverything seems dusty except...\nThere is one clean dish sitting by itself in the dish rack..." +
+        "\nForward/F - In front of you is a bedroom.\nLeft/L - To your left is the the front hallway.\nOpen dishwasher/Open - There is a dishwasher to your right" + 
+        "\nBackward/B - Behind you is the study.")    
+    showInformation(kitchenString)
+                    
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':
         if direction == "forward" or direction == "f":
-            printNow("Leaving Kitchen, Entering Main Bedroom...")
+            showInformation("Leaving Kitchen, Entering Main Bedroom...")
             mainBedroom()
         elif direction == "open dishwasher" or direction == "open":
             show(crowbar)
@@ -193,13 +211,13 @@ def kitchen():
             items.append("crowbar")
             kitchen()
         elif direction == "left" or direction == "l":
-            printNow("Leaving Kitchen, Entering Front Hallway...")
+            showInformation("Leaving Kitchen, Entering Front Hallway...")
             frontHallway()
         elif direction == "backward" or direction == "b":
-            printNow("Leaving Kitchen, Entering Study...")
+            showInformation("Leaving Kitchen, Entering Study...")
             study()
         else:
-            printNow("Improper direction")
+            showInformation("Improper direction")
             kitchen()           
 
 #Library room description with available directional movement listed             
@@ -214,19 +232,16 @@ def kitchen():
 def library():
     global items
     
-    printNow("----Library----")
-    printNow("You are in the Library...")
-    printNow("The room is eerily pristine, organized, spotless, aligned...except")
-    printNow("Get book/Get - Something seems off about this book")
-    printNow("Forward/F - In front of you is the Guest Bedroom.")
-    printNow("Right/R - To your right is the Front Hallway.")
-    printNow("Open door/Open - To your left is a closed closet door.")
-    printNow("Backward/B - Behind you is the Living Room.")
+    repaint(libraryImage)
+    libraryString = ("--------Library--------\nYou are in the Library...\nThe room is eerily pristine, organized, spotless, aligned...except" +
+        "Get book/Get - Something seems off about this book\nForward/F - In front of you is the Guest Bedroom.\nRight/R - To your right is the Front Hallway." + 
+        "Open door/Open - To your left is a closed closet door.\nBackward/B - Behind you is the Living Room.")
+    showInformation(libraryString)
    
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':
         if direction == "get book" or direction == "get":
-            printNow("As you grab the book, you notice it seems to be hollow and locked, what could be in it?")
+            showInformation("As you grab the book, you notice it seems to be hollow and locked, what could be in it?")
             if "crowbar" in items:
                 showInformation("You use the crowbar to break the lock on the book...\nInside you find a key for the front and back doors...")
                 show(unlockedBook)
@@ -236,24 +251,24 @@ def library():
                 showInformation("You are missing the required item to open the book...")
             library()  
         elif direction == "forward" or direction == "f":
-            printNow("Leaving Library, Entering Guest Room...")
+            showInformation("Leaving Library, Entering Guest Room...")
             guestBedroom()  
         elif direction == "right" or direction == "r":
-            printNow("Leaving Library, Entering Front Hallway...")
+            showInformation("Leaving Library, Entering Front Hallway...")
             frontHallway()
         elif direction == "open door" or direction == "open":
-            printNow("Attempting to open closet door...")
+            showInformation("Attempting to open closet door...")
             if "key" in items:
-                printNow("You use the key to unlock the door")
+                showInformation("You use the key to unlock the door")
                 closet()
             else:
-                printNow("The closet door is firmly shut.")
+                showInformation("The closet door is firmly shut.")
                 library()
         elif direction == "backward" or direction == "b":
-            printNow("Leaving Library, Entering Living Room...")
+            showInformation("Leaving Library, Entering Living Room...")
             livingRoom()
         else:
-            printNow("Improper direction.")
+            showInformation("Improper direction.")
             library()          
 
 #Closet (Bonus Room) description with available directional movement listed 
@@ -264,22 +279,20 @@ def library():
 #Backward is the library and the only way out of the closet. All other directions are improper
 #directions.
 def closet():
-    printNow("----Secret Room: Closet----")
-    printNow("You are in a Closet in the Library...")
-    printNow("Flicking on a light: You pick up a diary, which details the origins of the house.")
-    printNow("There was a happy family here.. in 1902. There is no description on where they went.")
-    printNow("Scribbled on the front is the word: FEAR")
-    printNow("Scribbled on the back is the word: CLEAR")
-    printNow("Backward/B - Behind you is the Library")
+    repaint(closet)
+    closetString = ("--------Secret Room: Closet--------\nYou are in a Closet in the Library...\nFlicking on a light: You pick up a diary, which details the origins of the house." +
+        "There was a happy family here.. in 1902. There is no description on where they went.\nScribbled on the front is the word: FEAR\nScribbled on the back is the word: CLEAR" +
+        "Backward/B - Behind you is the Library")
+    showInformation(closetString)
     
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':
         if direction == "backward" or direction == "b":
-            printNow("The closet light flickers off, and you wonder how there was power in the first place.")
-            printNow("You back out of the closet and return to the library...")
+            showInformation("The closet light flickers off, and you wonder how there was power in the first place.")
+            showInformation("You back out of the closet and return to the library...")
             library()
         else:
-            printNow("Improper direction")
+            showInformation("Improper direction")
             closet()
             
 #Back Hallway room description with available directional movement listed  
@@ -290,36 +303,34 @@ def closet():
 #Backward is the front hallway.
 #Left is the guest room
 def backHallway():
-    printNow("----Back Hallway----")
-    printNow("You are in the Back Hallway...")
-    printNow("Forward/F, the Back Door is boarded up.")
-    printNow("Right/R - To your right is the Guest Bedroom door.")
-    printNow("Left/L - To your left is the Main Bedroom door.")
-    printNow("Backward/B - Behind you is the Front Hallway.")
+    repaint(backHallwayImage)
+    backHallwayString = ("--------Back Hallway--------\nYou are in the Back Hallway...\nForward/F, the Back Door is boarded up." +
+         "\nRight/R - To your right is the Main Bedroom door.\nLeft/L - To your left is the Guest Bedroom door.\nBackward/B - Behind you is the Front Hallway.")
+    showInformation(backHallwayString)
     
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':
         if direction == "forward" or direction == "f":
-            printNow("You move toward the back door and verify it is locked.")
+            showInformation("You move toward the back door and verify it is locked.")
             if "key" in items:
-                printNow("You use the key to open the Back Door")
+                showInformation("You use the key to open the Back Door")
                 show(openBackDoor)
                 win()
             else:
                 show(backDoor)
-                printNow("You are missing the key to unlock the door..")
+                showInformation("You are missing the key to unlock the door..")
                 backHallway() 
         elif direction == "right" or direction == "r":
-            printNow("Entering Main Bedroom...")
+            showInformation("Entering Main Bedroom...")
             mainBedroom()
         elif direction == "left" or direction == "l":
-            printNow("Entering Guest Room...")
+            showInformation("Entering Guest Room...")
             guestBedroom()
         elif direction == "backward" or direction == "b":
-            printNow("Walking to the front of the hallway...")
+            showInformation("Walking to the front of the hallway...")
             frontHallway()
         else:
-            printNow("Improper direction.")
+            showInformation("Improper direction.")
             backHallway()   
 
 #Main bedroom description with available directional movement listed 
@@ -329,28 +340,24 @@ def backHallway():
 #Right sends the player back to the study.
 #Forward is not an option and restarts the function.
 def mainBedroom():
-    printNow("----Main Bedroom----")
-    printNow("You are in the Main Bedroom...")
-    printNow("The roof of this room is leaking in few places...")
-    printNow("Left/L - To your left is the back hallway.")
-    printNow("Backward/B - Behind you is the kitchen.")
+    repaint(masterBedroomImage)
+    mainBedroomString = ("--------Main Bedroom--------\nYou are in the Main Bedroom...\nThe roof of this room is leaking in few places..." +
+        "Left/L - To your left is the back hallway.\nBackward/B - Behind you is the kitchen.")
+    showInformation(mainBedroomString)
     
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':
         if direction == "forward" or direction == "f":
-            printNow("Sorry, you can't go through the wall.")
+            showInformation("Sorry, you can't go through the wall.")
             mainBedroom() 
-        elif direction == "right" or direction == "r":
-            printNow("Spend some time to study...")
-            study()
         elif direction == "left" or direction == "l":
-            printNow("Leaving Main Bedroom, Entering Back Hallway...")
+            showInformation("Leaving Main Bedroom, Entering Back Hallway...")
             backHallway()
         elif direction == "backward" or direction == "b":
-            printNow("Leaving Main Bedroom, Entering Kitchen...")
+            showInformation("Leaving Main Bedroom, Entering Kitchen...")
             kitchen()
         else:
-            printNow("Improper direction.")
+            showInformation("Improper direction.")
             mainBedroom()           
 
 #Guest Room description with available directional movement listed   
@@ -360,29 +367,29 @@ def mainBedroom():
 #Foward is not an option and restarts the function.
 #Left allows player to peer through a window, but then black out and the function restarts.
 def guestBedroom():
-    printNow("----Guest Bedroom----")
-    printNow("You are in the Guest Bedroom...")
-    printNow("Spider webs greet you as the door creaks open.")
-    printNow("It appears that no one has been in here in AGES.")
-    printNow("Right/R - To your right is the back hallway.")
-    printNow("Backward/B - Behind you is library.")
+    repaint(guestBedroomImage)
+    guestBedroomString = ("--------Guest Bedroom--------\nYou are in the Guest Bedroom...\nSpider webs greet you as the door creaks open." +
+        "It appears that no one has been in here in AGES.\nRight/R - To your right is the back hallway.\nLeft/L - To your left is a window, maybe it will open." +
+        "\nBackward/B - Behind you is library.")
+    showInformation(guestBedroomString)
     
     direction = requestString("Which direction will you go?:").lower()
     if checkInput(direction) != 'exit':
         if direction == "forward" or direction == "f":
-            printNow("Sorry, you can't go through the wall.")
+            showInformation("Sorry, you can't go through the wall.")
             guestBedroom() 
         elif direction == "right" or direction == "r":
-            printNow("Leaving Guest Bedroom, Entering Back Hallway...")
+            showInformation("Leaving Guest Bedroom, Entering Back Hallway...")
             backHallway()
         elif direction == "left" or direction == "l":
-            printNow("You peer towards a window on the left side of the room before blacking out momentarily.")
+            show(window)
+            showInformation("You peer towards a window on the left side of the room before blacking out momentarily.")
             guestBedroom()
         elif direction == "backward" or direction == "b":
-            printNow("Leaving Guest Bedroom, Entering library...")
+            showInformation("Leaving Guest Bedroom, Entering library...")
             library()
         else:
-            printNow("Improper direction")
+            showInformation("Improper direction")
             guestBedroom()
  
 #Player wins if the crowbar is used to open the book and the key inside the book is used to unlock the backdoor. 
@@ -408,7 +415,7 @@ def checkInput(string):
         welcome()
         return "welcome"
     if string == "exit" or string == "e":
-        printNow("You wake up, startled, the house vanishing as a dream...") 
+        showInformation("You wake up, startled, the house vanishing as a dream...") 
         return "exit"
       
 playGame()
