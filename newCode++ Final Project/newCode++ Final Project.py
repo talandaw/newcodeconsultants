@@ -3,13 +3,10 @@
 # CST 205 - Final Project
 # Enhanced text-driven adventure game.
 # Instructions appear at the start of the game
-import java.awt.Font as Font
 
 # Global variables initialized
 userName = ""
 items = []
-gameCanvas = makeEmptyPicture(800,800)
-myFont = makeStyle("Comic Sans", Font.BOLD, 12)
 backDoor = makePicture("C://pics/lockedBackDoor.jpg")
 frontDoor = makePicture("C://pics/lockedFrontDoor.jpg")
 openedFrontDoor = makePicture("C://pics/loseHole.jpg")
