@@ -29,6 +29,20 @@ backHallwayImage = makePicture("C://pics/backHallway.jpg")
 guestBedroomImage = makePicture("C://pics/guestBedroom.jpg")
 masterBedroomImage = makePicture("C://pics/masterBedroom.jpg")
 
+#SOUNDS
+backgroundSounds = makeSound("C://sounds/backgroundSounds.wav")
+crowbarSound = makeSound("C://sounds/crowbarSound.wav")
+doorClosedSound = makeSound("C://sounds/doorClosedSound.wav")
+gameOver = makeSound("C://sounds/gameOver.wav")
+pickupKeysSound = makeSound("C://sounds/pickupKeysSound.wav")
+welcomeSound = makeSound("C://sounds/welcome.wav")
+doorClosedSound = makeSound("C://sounds/doorClosedSound.wav") 
+openDoor = makeSound("C://sounds/openDoor.wav")
+openBook = makeSound("C://sounds/openBook.wav")
+windGust = makeSound("C://sounds/windGust.wav")
+thud = makeSound("C://sounds/thud.wav")
+crowbarTapping = makeSound("C://sounds/crowbarTapping.wav")
+cheer = makeSound("C://sounds/cheer.wav")
 
 def pyCopy(source, target, targetX, targetY):
     for x in range (0, getWidth(source)):
@@ -43,6 +57,7 @@ def pyCopy(source, target, targetX, targetY):
 #More options may exist depending on the room the player is in. 
 def welcome():
     global userName
+    play(welcomeSound)
     showInformation("Welcome to newCode++ Consultants' Adventure Game!\nIn each room you will...\nYou can move forward, backward, left, right, if allowed\nType '<direction>' to move \
     \nThere are various commands that can be performed on specific objects\nThese include: open, use\nType 'help' to redisplay this intro at any time\nType 'exit' to quit game at any time")
     userName = requestString("What is your name, adventurer?:")
@@ -57,7 +72,7 @@ def welcome():
 #The game will then restart.
 def foyer():
     global items    
-    
+    play(openDoor)
     repaint(foyerImage)
     foyerString = ("----------Foyer---------\nYou are in the Foyer\nThe once grandiose room seems barren now...\nForward/F - In front of you is the Front Hallway, leading to various rooms" +
        "\nRight/R - To your right is a Study\nLeft/L - To your left is the Living Room.\nBackward/B - Behind you is the door to the Front Yard, it seems to be locked, you must need a key.")
@@ -88,6 +103,7 @@ def foyer():
                 lose()
             else:
                 show( frontDoor)
+                play(doorClosedSound)
                 showInformation("The Door is locked. You are missing the items to open door...")
                 foyer() 
         else:
@@ -100,8 +116,8 @@ def foyer():
 #Left is the foyer. 
 #There is not a right or backward option, these directions will start the function over.
 def study():
-    repaint(studyImage)
-        
+    repaint(studyImage) 
+    play(windGust) 
     studyString = ("--------Study--------\nYou are in the Study\nA whistling sound startles you when wind comes in through a broken window..." +
         "\nForward/F - In front of you is the Kitchen\nLeft/L - To your left is the Foyer.")
     showInformation(studyString)
@@ -207,6 +223,7 @@ def kitchen():
             mainBedroom()
         elif direction == "open dishwasher" or direction == "open":
             show(crowbar)
+            play(crowbarSound) 
             showInformation("Opening dish washer...\nYou found a crowbar in the dishwasher that will open the book in the library...")
             items.append("crowbar")
             kitchen()
@@ -231,7 +248,6 @@ def kitchen():
 #Backward is the living room.
 def library():
     global items
-    
     repaint(libraryImage)
     libraryString = ("--------Library--------\nYou are in the Library...\nThe room is eerily pristine, organized, spotless, aligned...except" +
         "\nGet book/Get - Something seems off about this book\nForward/F - In front of you is the Guest Bedroom.\nRight/R - To your right is the Front Hallway." + 
@@ -243,7 +259,11 @@ def library():
         if direction == "get book" or direction == "get":
             showInformation("As you grab the book, you notice it seems to be hollow and locked, what could be in it?")
             if "crowbar" in items:
+                play(pickupKeysSound)
+                
                 showInformation("You use the crowbar to break the lock on the book...\nInside you find a key for the front and back doors...")
+                play(crowbarTapping)
+                play(openBook)
                 show(openedBook)
                 items.append("key")
             else:
@@ -260,6 +280,7 @@ def library():
             showInformation("Attempting to open closet door...")
             if "key" in items:
                 showInformation("You use the key to unlock the door")
+                
                 closet()
             else:
                 showInformation("The closet door is firmly shut.")
@@ -280,6 +301,7 @@ def library():
 #directions.
 def closet():
     repaint(closetImage)
+    play(openDoor)
     closetString = ("--------Secret Room: Closet--------\nYou are in a Closet in the Library...\nFlicking on a light: You pick up a diary, which details the origins of the house." +
         "\nThere was a happy family here.. in 1902. There is no description on where they went.\nScribbled on the front is the word: FEAR\nScribbled on the back is the word: CLEAR" +
         "\nBackward/B - Behind you is the Library")
@@ -341,6 +363,8 @@ def backHallway():
 #Forward is not an option and restarts the function.
 def mainBedroom():
     repaint(masterBedroomImage)
+    play(openDoor)
+    
     mainBedroomString = ("--------Main Bedroom--------\nYou are in the Main Bedroom...\nThe roof of this room is leaking in few places..." +
         "Left/L - To your left is the back hallway.\nBackward/B - Behind you is the kitchen.")
     showInformation(mainBedroomString)
@@ -368,6 +392,7 @@ def mainBedroom():
 #Left allows player to peer through a window, but then black out and the function restarts.
 def guestBedroom():
     repaint(guestBedroomImage)
+    
     guestBedroomString = ("--------Guest Bedroom--------\nYou are in the Guest Bedroom...\nSpider webs greet you as the door creaks open." +
         "It appears that no one has been in here in AGES.\nRight/R - To your right is the back hallway.\nLeft/L - To your left is a window, maybe it will open." +
         "\nBackward/B - Behind you is library.")
@@ -384,6 +409,7 @@ def guestBedroom():
         elif direction == "left" or direction == "l":
             show(window)
             showInformation("You peer towards a window on the left side of the room before blacking out momentarily.")
+            play(thud)
             guestBedroom()
         elif direction == "backward" or direction == "b":
             showInformation("Leaving Guest Bedroom, Entering library...")
@@ -395,12 +421,14 @@ def guestBedroom():
 #Player wins if the crowbar is used to open the book and the key inside the book is used to unlock the backdoor. 
 #Player can only win in the backhallway.
 def win(): 
+    play(cheer)
     showInformation("Congratulations, " + userName + "!!!\nYou successfully exited the house and completed the game!")
     
 #Player loses if the key in the book is used in the front door. The key breaks off and the player does not 
 #have a way out.
 #Player can only lose in the foyer.
 def lose():
+    play(gameOver) #Game over vocal
     showInformation("GAME OVER, " + userName + "!\nYour key broke in the door. You are trapped forever!")
     #playGame()
 
@@ -419,3 +447,4 @@ def checkInput(string):
         return "exit"
       
 playGame()
+
