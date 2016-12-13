@@ -279,7 +279,7 @@ def library():
 #Backward is the library and the only way out of the closet. All other directions are improper
 #directions.
 def closet():
-    repaint(closet)
+    repaint(closetImage)
     closetString = ("--------Secret Room: Closet--------\nYou are in a Closet in the Library...\nFlicking on a light: You pick up a diary, which details the origins of the house." +
         "There was a happy family here.. in 1902. There is no description on where they went.\nScribbled on the front is the word: FEAR\nScribbled on the back is the word: CLEAR" +
         "Backward/B - Behind you is the Library")
